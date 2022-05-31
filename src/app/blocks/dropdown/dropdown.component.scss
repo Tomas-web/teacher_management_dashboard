@@ -1,0 +1,16 @@
+.dropdown-block {
+  .btn-outline-primary {
+    color: #5E60CE;
+    border: #5E60CE 1px solid;
+
+    &:hover {
+      color: #FFFFFF;
+      background: #5E60CE;
+    }
+
+    &:focus {
+      color: #FFFFFF;
+      background: #5E60CE;
+    }
+  }
+}

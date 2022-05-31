@@ -1,0 +1,23 @@
+<div class="date-picker">
+  <p *ngIf="dateInput">{{ dateInput.toDateString() }}</p>
+  <input style="display: none;" [ngxMatDatetimePickerFilter]="dateFilter" [(ngModel)]="dateInput" [min]="minDate" [ngxMatDatetimePicker]="picker" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                           [stepHour]="1" [stepMinute]="0" [touchUi]="true" [hideTime]="true"
+                           [color]="color" [enableMeridian]="false" [disableMinute]="true" (closed)="onDatepickerClose()"></ngx-mat-datetime-picker>
+
+  <div class="available-times">
+    <div class="available-time"
+         (click)="selectTime(time)"
+         [class.time-selected]="time === selectedTime"
+         [class.disabled]="!dateInput"
+         *ngFor="let time of availableTimes">
+      <p>{{ time }}</p>
+    </div>
+  </div>
+
+  <button class="button fill"
+          [class.disabled]="!dateInput || !selectedTime"
+          [disabled]="!dateInput || !selectedTime"
+          (click)="submit()">Submit</button>
+</div>

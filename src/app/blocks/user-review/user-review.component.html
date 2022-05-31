@@ -1,0 +1,14 @@
+<div class="user-review">
+  <div class="reviewer-avatar" [style]="'background-image: url(' + review.reviewer.avatarUrl + ')'"></div>
+  <div>
+    <p class="semi-bold mb-1">{{ review.reviewer.name }}</p>
+    <div class="rating-stars">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+        <div class="rating-star">
+          <img [src]="'assets/' + (review.value >= star ? 'ico_star_yellow' : 'ico_star' ) + '.svg'" alt="">
+        </div>
+      </ng-container>
+    </div>
+    <p>{{ review.comment }}</p>
+  </div>
+</div>

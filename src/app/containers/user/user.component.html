@@ -1,0 +1,91 @@
+<div class="user" *ngIf="user">
+  <div class="container">
+    <h1>{{ user.roleId === userRoleEnum.STUDENT ? 'User' : 'Teacher' }}</h1>
+    <div class="user-details">
+      <div class="avatar" [style]="'background-image: url(' + user.picture + ')'"></div>
+
+      <div class="general-info">
+        <p class="semi-bold mb-2">Full name:</p>
+        <p>{{ user.fullName }}</p>
+
+        <p class="semi-bold mb-2">Email:</p>
+        <p>{{ user.email }}</p>
+
+        <ng-container *ngIf="user.description">
+          <p class="semi-bold mb-2">About:</p>
+          <p>{{ user.description }}</p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="teacher-info" *ngIf="user.roleId === userRoleEnum.TEACHER">
+      <h3>Teacher info</h3>
+
+      <p class="semi-bold mb-2">Speciality:</p>
+      <p>{{ user.speciality }}</p>
+
+      <p class="semi-bold mb-2">Price:</p>
+      <p>{{ user.price }} Eur per hour</p>
+
+      <p class="semi-bold mb-2">Address:</p>
+      <p>{{ user.address }}</p>
+
+      <p class="semi-bold mb-2">Contacts:</p>
+      <p>{{ user.contacts }}</p>
+    </div>
+
+    <ng-container *ngIf="auth.isAuthenticated() && user.roleId === userRoleEnum.TEACHER && user.id !== profileService.profile?.id">
+      <h3>Lesson reservation</h3>
+
+      <app-date-time-picker
+        [minTime]="workingTimeStart"
+        [maxTime]="workingTimeEnd"
+        [reservedDates]="lessonReservations"
+        [maxLessonsADay]="maxLessonsADay"
+        (submitted)="submitReservation($event)"
+      ></app-date-time-picker>
+
+      <p class="small red" *ngIf="isReservedByOtherUser">Whoops! Looks like someone already reserved this time. Try selecting another time.</p>
+      <p class="small red" *ngIf="timeConflicts">Looks like you already have an upcoming lesson at this time!</p>
+      <p class="green" *ngIf="reservationSuccessful">Reservation successful!</p>
+    </ng-container>
+
+    <ng-container *ngIf="auth.isAuthenticated() && user.id !== profileService.profile?.id">
+      <h3>Reviews</h3>
+      <div class="add-review" *ngIf="user.roleId === userRoleEnum.TEACHER">
+        <textarea rows="5"
+                  [(ngModel)]="reviewText"
+                  placeholder="Leave a comment..."
+        ></textarea>
+
+        <p class="small red" *ngIf="reviewText.length > maxReviewCommentLength">Review comment shouldn't be larger than {{ maxReviewCommentLength }} symbols</p>
+
+        <p class="small text-right">{{ reviewText.length }}/{{ maxReviewCommentLength }}</p>
+
+        <div class="action-buttons">
+          <div class="rating-stars">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <div class="rating-star" (click)="onClickStar(star)">
+                <img [src]="'assets/' + (selectedRating >= star ? 'ico_star_yellow' : 'ico_star' ) + '.svg'" alt="">
+              </div>
+            </ng-container>
+          </div>
+
+          <button
+            class="button fill"
+            [disabled]="submittingReview"
+            (click)="saveReview()">Add review</button>
+        </div>
+        <p class="small red" *ngIf="ratingRequired">Please select a rating</p>
+      </div>
+    </ng-container>
+
+    <div class="user-reviews">
+      <app-user-review
+        *ngFor="let review of reviews"
+        [userId]="userId"
+        [review]="review"
+      ></app-user-review>
+    </div>
+  </div>
+</div>

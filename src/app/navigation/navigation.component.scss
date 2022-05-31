@@ -1,0 +1,94 @@
+.header {
+  width: 100%;
+  padding: 1rem;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1536px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .logo {
+      font-family: 'Amarante', sans-serif;
+      font-size: 24px;
+      line-height: 28px;
+      color: #5E60CE;
+      text-decoration: none;
+    }
+
+    .navigation-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: 2rem;
+
+      a {
+        font-family: 'Open sans', sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+        transition: 0.2s;
+        color: #5E60CE;
+        text-decoration: none;
+
+        &:hover {
+          color: #4EA8DE;
+        }
+      }
+    }
+
+    .authorization {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+
+      .login-btn {
+        border-radius: 0.5rem;
+        width: 150px;
+        height: 35px;
+        font-family: 'Open sans', sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+        transition: 0.2s;
+
+        background: #5E60CE;
+
+        &:hover {
+          background: #4EA8DE;
+        }
+
+        &:active {
+          background: #5390D9;
+        }
+      }
+
+      .register-btn {
+        border: #5E60CE 1px solid;
+        border-radius: 0.5rem;
+        width: 150px;
+        height: 35px;
+        font-family: 'Open sans', sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+        background: #FFFFFF;
+        color: #5E60CE;
+        transition: 0.2s;
+
+        &:hover {
+          border: #7400B8 1px solid;
+          background: #5E60CE;
+          color: #FFFFFF;
+        }
+
+        &:active {
+          background: #6930C3;
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
+}

@@ -1,0 +1,25 @@
+.upcoming-lesson {
+  display: flex;
+  gap: 0.5rem;
+  box-shadow: -1px -1px 14px 0px rgba(0,0,0,0.09);
+  padding: 1rem;
+  cursor: pointer;
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover, &:active {
+    box-shadow: -1px -1px 14px 0px rgba(94, 96, 206,0.09);
+
+    .name {
+      color: #5E60CE;
+    }
+  }
+
+  &:active {
+    background: #f1e8ff;
+    box-shadow: none;
+  }
+}

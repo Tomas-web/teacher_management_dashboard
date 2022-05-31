@@ -1,0 +1,191 @@
+<div class="profile" (click)="hideSpecialitiesList()">
+  <div class="container">
+    <h1>Profile</h1>
+
+    <div class="chart-block"
+         *ngIf="postViews && profile.roleId === userRoleEnum.TEACHER"
+    >
+      <h3>Post views</h3>
+
+      <app-dropdown [currentValue]="selectedPeriod" [items]="periods" (itemSelected)="selectPeriod($event)"></app-dropdown>
+
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [dataLabels]="chartOptions.dataLabels"
+        [colors]="chartOptions.colors"
+        [yaxis]="chartOptions.yaxis"
+        [labels]="chartOptions.labels"
+        [legend]="chartOptions.legend"
+        [title]="chartOptions.title"
+        [subtitle]="chartOptions.subtitle"
+      ></apx-chart>
+    </div>
+
+    <form [formGroup]="generalUserForm" *ngIf="generalUserForm" class="user-info">
+      <div class="avatar"
+           (click)="openAvatarUpload()"
+           [style]="'background-image: url(' + profile.picture + ')'">
+      </div>
+
+      <div class="general-info">
+        <p class="mb-2">Full name</p>
+        <input class="default-input"
+               type="text" formControlName="fullName" placeholder="Enter full name...">
+        <p class="small red mb-2" *ngIf="(fullName.touched || fullName.dirty) && fullName.invalid">
+          <ng-container
+            *ngIf="fullName.errors?.firstNotLetter; else notAllowedName"
+          >
+            Name should start with a letter
+          </ng-container>
+          <ng-template #notAllowedName>
+            Please use letters, numbers 0 to 9 or symbols - .
+          </ng-template>
+        </p>
+
+        <p class="mb-2">Email</p>
+        <input class="default-input"
+               type="text" formControlName="email" placeholder="Enter your email...">
+        <p class="small red mb-2" *ngIf="email.touched && email.invalid">Please enter a valid email</p>
+
+        <p class="mb-2">About (Optional)</p>
+        <textarea formControlName="about" rows="9" placeholder="Some lines about you..."></textarea>
+      </div>
+    </form>
+
+
+    <h3>Teacher settings</h3>
+    <form [formGroup]="teacherSettingsForm" *ngIf="teacherSettingsForm" class="teacher-settings">
+      <div class="change-role" (click)="onClickRoleToggle()">
+        <p>Role: {{profile.roleId === userRoleEnum.TEACHER ? 'Teacher' : 'Student' }}</p>
+        <div class="switch">
+          <div class="slider round red-to-purple"
+               [class.slider-selected]="profile.roleId === userRoleEnum.TEACHER"></div>
+        </div>
+      </div>
+
+      <p class="mb-2">Speciality</p>
+      <input class="default-input"
+             type="text"
+             formControlName="speciality"
+             placeholder="Enter your speciality..."
+             (click)="showSpecialitiesList($event)"
+             (input)="specialitiesSearch()"
+             (keydown)="moveInSpecialitiesList($event)"
+      />
+      <div class="specialities" *ngIf="showSpecialities">
+        <div
+          class="specialities-list"
+        >
+          <div
+            id="specialities-list"
+            class="search-input-scroll"
+          >
+            <div *ngFor="let item of filteredSpecialities; let idx = index">
+              <div
+                [class.search-input-item-focused]="
+                  idx === specialityIdx
+                "
+                class="search-input-item"
+                style="cursor: pointer"
+                (click)="selectSpeciality(item)"
+              >
+                <div>
+                  {{ item }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="small red mb-2" *ngIf="speciality.touched && !this.specialities.includes(this.speciality.value)">Please
+        select speciality from list</p>
+
+      <p class="mb-2">Working time start</p>
+      <input class="default-input"
+             type="text"
+             formControlName="workingTimeStart"
+             placeholder="Enter working time start..."
+      />
+      <p class="small red mb-2" *ngIf="workingTimeStart.invalid && workingTimeStart.touched">Format should look like
+        this 14:23, 02:10, etc.</p>
+      <p class="small red mb-2" *ngIf="workingTimesErr">Working time start should be before time end</p>
+
+      <p class="mb-2">Working time end</p>
+      <input class="default-input"
+             type="text"
+             formControlName="workingTimeEnd"
+             placeholder="Enter working time end..."
+      />
+      <p class="small red mb-2" *ngIf="workingTimeEnd.invalid && workingTimeEnd.touched">Format should look like this
+        14:23, 02:10, etc.</p>
+
+      <p class="mb-2">Price (Eur per hour)</p>
+      <input class="default-input"
+             type="number"
+             min="1"
+             formControlName="price"
+             placeholder="Enter a price per hour..."
+      />
+      <p class="small red mb-2" *ngIf="price.invalid && price.touched">Please type numbers larger than 0</p>
+
+      <p class="mb-2">Address</p>
+      <input class="default-input"
+             type="text"
+             formControlName="address"
+             placeholder="Enter your address..."
+      />
+      <p class="small red mb-2" *ngIf="address.invalid && address.touched">Address should not be empty</p>
+
+      <p class="mb-2">Contacts</p>
+      <textarea rows="9"
+                formControlName="contacts"
+                placeholder="Enter your contacts..."
+      ></textarea>
+      <p class="small red mb-2" *ngIf="contacts.invalid && contacts.touched">Contacts should not be empty</p>
+
+    </form>
+
+
+    <div class="save-btn">
+      <button class="button fill"
+              type="button"
+              [disabled]="submitting"
+              (click)="save()">Save profile
+      </button>
+      <div class="small-loader" *ngIf="submitting"></div>
+      <p class="green" *ngIf="success">Changes saved!</p>
+    </div>
+    <p class="red" *ngIf="savingError">Something went wrong while saving profile details. Please try again later.</p>
+
+
+    <h3 class="mb-4">Upcoming lessons as student:</h3>
+    <div class="upcoming-lessons">
+      <ng-container *ngIf="studentLessonReservations?.length > 0; else noUpcomingLessons">
+        <app-upcoming-lesson
+          *ngFor="let reservation of studentLessonReservations"
+          [lessonReservation]="reservation"
+          [showForTeacher]="false"
+        ></app-upcoming-lesson>
+      </ng-container>
+    </div>
+
+    <h3 class="mb-4">Upcoming lessons as teacher:</h3>
+
+    <div class="upcoming-lessons">
+      <ng-container *ngIf="teacherLessonReservations?.length > 0; else noUpcomingLessons">
+        <app-upcoming-lesson
+          *ngFor="let reservation of teacherLessonReservations"
+          [lessonReservation]="reservation"
+          [showForTeacher]="true"
+        ></app-upcoming-lesson>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUpcomingLessons>
+  <p>No upcoming lessons...</p>
+</ng-template>

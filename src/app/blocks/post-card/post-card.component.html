@@ -1,0 +1,20 @@
+<div class="post-card" (click)="onClickPost()">
+  <div class="avatar">
+    <app-avatar [avatarUrl]="post.author.avatarUrl"></app-avatar>
+  </div>
+  <h4 class="title">{{ post.title }}</h4>
+  <p class="small semi-bold mb-2">Speciality: {{ post.speciality }}</p>
+  <p class="small semi-bold mb-2">Price: {{ post.price }} Eur</p>
+  <div class="rating-stars">
+    <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+      <div class="rating-star">
+        <img [src]="'assets/' + (post.rating >= star ? 'ico_star_yellow' : 'ico_star' ) + '.svg'" alt="">
+      </div>
+    </ng-container>
+  </div>
+  <p class="description">{{ post.description }}</p>
+
+  <div class="action-btn">
+    <p>Open</p>
+  </div>
+</div>

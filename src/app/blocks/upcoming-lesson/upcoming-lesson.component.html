@@ -1,0 +1,11 @@
+<div class="upcoming-lesson"
+     (click)="navigateToUser()"
+     *ngIf="userData">
+  <div class="avatar">
+    <app-avatar [avatarUrl]="userData.picture"></app-avatar>
+  </div>
+  <div>
+    <p class="semi-bold mb-2 name">Name: {{ userData.fullName }}</p>
+    <p class="semi-bold">Starts at: {{ dateWorker.formatDateTime(lessonReservation.lessonStart) }}</p>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="homeworks-container container">
+  <h1>Homeworks</h1>
+
+  <div class="dropdown">
+    <app-dropdown [currentValue]="selectedListType" [items]="listTypes" (itemSelected)="selectListType($event)"></app-dropdown>
+  </div>
+
+  <app-homeworks-list [homeworks]="homeworks" [forTeacher]="false"></app-homeworks-list>
+</div>

@@ -1,0 +1,29 @@
+.crop-image {
+  max-height: 300px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+
+  ::ng-deep .cropper-container {
+    .cropper-crop-box {
+      .cropper-dashed {
+        display: none;
+      }
+      .cropper-line {
+        display: none;
+      }
+      .cropper-point {
+        display: none;
+      }
+      .cropper-view-box {
+        border-radius: 100%;
+        outline: none !important;
+      }
+      .cropper-center {
+        display: none;
+      }
+      .cropper-face {
+        border-radius: 100%;
+      }
+    }
+  }
+}

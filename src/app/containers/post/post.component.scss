@@ -1,0 +1,62 @@
+.post {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  button {
+    &.ml-auto {
+      margin-left: auto;
+    }
+  }
+
+  .post-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    margin-bottom: 1rem;
+
+    .author-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .avatar {
+        height: 300px;
+        width: 300px;
+        margin-bottom: 1rem;
+      }
+
+      .name {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .speciality {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .rating-stars {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-bottom: 1rem;
+
+        .rating-star {
+          width: 16px;
+        }
+      }
+    }
+  }
+}

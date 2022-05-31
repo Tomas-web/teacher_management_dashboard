@@ -1,0 +1,61 @@
+<div class="modal-container">
+  <div class="modal-header">
+    <div class="modal-close" (click)="dismiss()">
+      <img class="icon-default" src="assets/ico_cross.svg" alt="">
+      <img class="icon-hovered" src="assets/ico_cross_purple.svg" alt="">
+    </div>
+  </div>
+
+  <app-image-cropper
+    *ngIf="showCropper"
+    [imageSrc]="imageToCrop"
+    (setCroppedPhoto)="setPhoto($event)"
+  ></app-image-cropper>
+  <div class="avatar-block">
+    <input
+      style="display: none"
+      id="image-input"
+      #imageInput
+      type="file"
+      accept="image/jpeg, image/png"
+      (change)="processFile(imageInput)"
+    />
+    <ng-container *ngIf="!showCropper">
+      <label
+        for="image-input"
+        *ngIf="!avatarUrl; else avatar"
+        class="upload-avatar"
+      >
+        <span>Select photo</span>
+      </label>
+      <ng-template #avatar>
+        <div
+          class="edit-avatar"
+          [style]="'background-image: url(' + avatarUrl + ')'"
+        >
+          <label for="image-input" class="edit-bg">
+            <span>Edit photo</span>
+          </label>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+
+  <p
+    class="small red"
+    *ngIf="requestErr"
+  >Whoops, something went wrong! Try again later.</p>
+  <p
+    class="small red"
+    *ngIf="imageTooBigErr"
+  >Image size is too big</p>
+  <p
+    class="small red"
+    *ngIf="imageTypeNotAllowed"
+  >This image type is not allowed</p>
+
+  <button class="button fill big full"
+          (click)="upload()"
+          *ngIf="!showCropper"
+  >Save photo</button>
+</div>

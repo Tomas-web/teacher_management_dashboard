@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="header-content">
+    <a class="logo" [routerLink]="['home']">Extra lessons</a>
+
+    <div class="navigation-links">
+      <a [routerLink]="['home']">Home</a>
+      <ng-container *ngIf="auth.isAuthenticated()">
+        <a [routerLink]="['profile']">Profile</a>
+        <a [routerLink]="['homeworks']">My homeworks</a>
+        <a [routerLink]="['assigned-homeworks']" *ngIf="profileService.profile?.roleId === userRoleEnum.TEACHER">Assigned homeworks</a>
+      </ng-container>
+    </div>
+
+    <div class="authorization">
+      <ng-container *ngIf="!auth.isAuthenticated(); else logoutBtn">
+        <button class="register-btn" (click)="onClickLogin()">Register</button>
+        <button class="login-btn" (click)="onClickLogin()">Login</button>
+      </ng-container>
+
+      <ng-template #logoutBtn>
+        <button class="register-btn" (click)="logout()">Logout</button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

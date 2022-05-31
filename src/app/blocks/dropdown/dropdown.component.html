@@ -1,0 +1,6 @@
+<div ngbDropdown class="d-inline-block dropdown-block">
+  <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{ currentValue }}</button>
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+    <button ngbDropdownItem (click)="onClickItem(item)" *ngFor="let item of items">{{ item }}</button>
+  </div>
+</div>

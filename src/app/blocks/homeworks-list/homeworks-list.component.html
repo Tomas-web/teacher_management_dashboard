@@ -1,0 +1,43 @@
+<div class="homeworks-list-block" *ngIf="homeworks">
+  <h3>{{ forTeacher ? 'Assigned homeworks' : 'Homeworks' }}</h3>
+
+  <div class="assigned-homeworks-content">
+    <ng-container *ngIf="homeworks.length > 0; else nothingFound">
+      <div class="homeworks-list">
+        <div
+          class="homework"
+          [class.selected]="selectedHomework?.id === homework.id"
+          (click)="selectHomework(homework)"
+          *ngFor="let homework of homeworks">
+          <div class="avatar">
+            <app-avatar [avatarUrl]="forTeacher ? homework.student.avatarUrl : homework.teacher.avatarUrl"></app-avatar>
+          </div>
+
+          <div>
+            <p class="semi-bold mb-2 name">{{ forTeacher ? homework.student.name : homework.teacher.name }}</p>
+            <p>Deadline: {{ dateWorker.formatDateTime(homework.deadline) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="homework-details" *ngIf="selectedHomework">
+        <div class="avatar">
+          <app-avatar [avatarUrl]="forTeacher ? selectedHomework.student.avatarUrl : selectedHomework.teacher.avatarUrl"></app-avatar>
+        </div>
+        <h4>{{ forTeacher ? selectedHomework.student.name : selectedHomework.teacher.name }}</h4>
+        <p class="semi-bold">{{ dateWorker.formatDateTime(selectedHomework.deadline) }}</p>
+
+        <div style="width: 100%;">
+          <p class="semi-bold">Task description</p>
+        </div>
+        <div class="homework-description">
+          <p>{{ selectedHomework.content }}</p>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #nothingFound>
+      <p>No homeworks found</p>
+    </ng-template>
+  </div>
+</div>

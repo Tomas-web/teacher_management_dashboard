@@ -1,0 +1,13 @@
+<div class="assigned-homeworks-container container">
+  <h1>Assigned homeworks</h1>
+  <div class="homework-assigned" *ngIf="showHomeworkAssigned">
+    <p>Homework assigned successfully!</p>
+  </div>
+
+  <button class="button fill big" (click)="openAssignHomeworkModal()">Assign new homework</button>
+
+  <div class="dropdown">
+    <app-dropdown [currentValue]="selectedListType" [items]="listTypes" (itemSelected)="selectListType($event)"></app-dropdown>
+  </div>
+  <app-homeworks-list [homeworks]="homeworks" [forTeacher]="true"></app-homeworks-list>
+</div>

@@ -1,0 +1,60 @@
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  padding: 1rem;
+  box-shadow: -1px -1px 14px 0px rgb(0 0 0 / 9%);
+  width: 100%;
+  max-width: 670px;
+  margin-bottom: 2rem;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  button {
+    margin-left: auto;
+  }
+
+  mat-datepicker-toggle {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .available-times {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+
+    .available-time {
+      padding: 4px 6px;
+      border-radius: 1rem;
+      cursor: pointer;
+
+      &:hover, &:active {
+        background: #f6f4f6;
+        p {
+          color: #5E60CE;
+        }
+      }
+
+      &:active {
+        background: #f1e8ff;
+      }
+
+      &.time-selected {
+        background: #eae8ff;
+        color: #5E60CE;
+      }
+
+      &.disabled {
+        background: rgba(0,0,0,0.05);
+
+        p {
+          color: rgba(0,0,0,.38);
+        }
+      }
+    }
+  }
+}

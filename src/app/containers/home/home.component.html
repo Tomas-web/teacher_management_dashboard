@@ -1,0 +1,67 @@
+<div class="home-container container" *ngIf="!hidePostsList">
+  <button
+    class="button create-post-btn"
+    *ngIf="auth.isAuthenticated() && profileService.profile?.roleId === userRoleEnum.TEACHER"
+    (click)="openCreatePostModal()"
+  >
+    Create post
+  </button>
+
+  <p class="green" *ngIf="showPostCreated">Post created successfully!</p>
+
+  <div class="filters">
+    <p class="semi-bold mb-2">Price (Eur):</p>
+    <div class="price-filters">
+      <p class="small">From:</p>
+      <input
+        class="default-input number-input"
+        type="number"
+        min="1"
+        (change)="validateLowestPrice()"
+        [(ngModel)]="lowestPrice"
+      >
+      <p class="small">To:</p>
+      <input
+        class="default-input number-input"
+        type="number"
+        min="2"
+        (change)="validateHighestPrice()"
+        [(ngModel)]="highestPrice"
+      >
+    </div>
+    <p class="small red" *ngIf="pricesErr">Lowest price cannot be bigger than highest price</p>
+
+    <p class="semi-bold mb-2">Select minimal rating:</p>
+    <app-dropdown [currentValue]="selectedRating" [items]="ratings" (itemSelected)="selectRating($event)"></app-dropdown>
+
+    <p class="semi-bold mb-2">Speciality:</p>
+    <app-dropdown [currentValue]="selectedSpeciality" [items]="specialities" (itemSelected)="selectSpeciality($event)"></app-dropdown>
+
+    <p class="semi-bold mb-2">Sort by:</p>
+    <app-dropdown [currentValue]="selectedSortBy" [items]="sortByList" (itemSelected)="selectSortBy($event)"></app-dropdown>
+
+    <p class="semi-bold mb-2">Search by text:</p>
+    <input class="default-input" [(ngModel)]="searchString" type="text" placeholder="Search by title, teacher name or description...">
+
+    <button class="button fill full big" (click)="onSearchClicked()">Search</button>
+  </div>
+
+  <div class="posts-grid" *ngIf="posts">
+    <app-post-card *ngFor="let post of posts" [post]="post" (postClicked)="handlePostClick($event)"></app-post-card>
+  </div>
+
+  <div class="nothing-found" *ngIf="posts?.length === 0">
+    <p>Unfortunately nothing was found for selected filters</p>
+  </div>
+
+  <div class="pages">
+    <div class="page"
+         [class.selected]="pageNum === currentPage"
+         (click)="onPageClicked(pageNum)"
+         *ngFor="let pageNum of pagesList">
+      <p>{{ pageNum }}</p>
+    </div>
+  </div>
+</div>
+
+<router-outlet (activate)="hidePostsList = true" (deactivate)="hidePostsList = false"></router-outlet>

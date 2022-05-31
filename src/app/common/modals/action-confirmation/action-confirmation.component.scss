@@ -1,0 +1,11 @@
+.modal-container {
+  width: 100%;
+  border-radius: 0.5rem;
+  padding: 32px;
+  background: #EDEDED;
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+  }
+}

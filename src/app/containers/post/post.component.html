@@ -1,0 +1,34 @@
+<div class="container post" *ngIf="post">
+  <h1 class="bold">{{ post.title }}</h1>
+
+  <div class="post-content">
+    <div class="author-details">
+      <div class="avatar">
+        <app-avatar [avatarUrl]="post.author.avatarUrl"></app-avatar>
+      </div>
+      <div class="name">
+        <h4>Full name:</h4>
+        <h4>{{ post.author.name }}</h4>
+      </div>
+
+      <div class="speciality">
+        <h4>Speciality:</h4>
+        <h4>{{ post.speciality }}</h4>
+      </div>
+
+      <div class="rating-stars">
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+          <div class="rating-star">
+            <img [src]="'assets/' + (post.rating >= star ? 'ico_star_yellow' : 'ico_star' ) + '.svg'" alt="">
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <div>
+      <p class="semi-bold">About:</p>
+      <p>{{ post.description }}</p>
+    </div>
+  </div>
+  <button class="button fill big ml-auto" (click)="navigateToAuthor()">Schedule lesson</button>
+</div>

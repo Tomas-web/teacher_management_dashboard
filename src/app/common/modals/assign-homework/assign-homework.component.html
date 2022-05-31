@@ -1,0 +1,98 @@
+<div class="assign-homework-container modal-container" (click)="hideStudentsList()">
+  <div class="modal-header">
+    <h1 class="bold">Create post</h1>
+    <div class="modal-close" (click)="dismiss()">
+      <img class="icon-default" src="assets/ico_cross.svg" alt="">
+      <img class="icon-hovered" src="assets/ico_cross_purple.svg" alt="">
+    </div>
+  </div>
+
+  <p class="semi-bold mb-2">Assign to:</p>
+  <ng-container *ngIf="!selectedStudent; else userSelected">
+    <input class="default-input"
+           type="text"
+           [(ngModel)]="studentSearchText"
+           placeholder="Search by student name..."
+           (click)="showStudentsList()"
+           (input)="getStudents()"
+           (keydown)="moveInStudentsList($event)"
+    />
+    <div class="students" *ngIf="showStudents">
+      <div
+        class="students-list"
+      >
+          <div
+            id="students-list"
+            class="search-input-scroll"
+          >
+            <ng-container *ngIf="!searching; else searchingText">
+              <ng-container *ngIf="students?.length > 0; else nothingFound">
+                <div *ngFor="let item of students; let idx = index">
+                  <div
+                    [class.search-input-item-focused]="
+                  idx === studentIdx
+                "
+                    class="search-input-item"
+                    (click)="selectStudent(item)"
+                  >
+                    <div>
+                      {{ item.fullName }}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #nothingFound>
+                <p>Nothing found for "{{ studentSearchText }}"</p>
+              </ng-template>
+            </ng-container>
+          </div>
+
+
+        <ng-template #searchingText>
+          <p>Searching...</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <p class="red" *ngIf="selectStudentErr">Please select a student</p>
+  </ng-container>
+
+  <ng-template #userSelected>
+    <div class="selected-student" (click)="unselectStudent()">
+      <div class="avatar">
+        <app-avatar [avatarUrl]="selectedStudent.picture"></app-avatar>
+      </div>
+      <h4>{{ selectedStudent.fullName }}</h4>
+
+      <p class="ml-auto">Choose another</p>
+    </div>
+  </ng-template>
+
+  <p class="semi-bold mb-2">Task description</p>
+  <textarea rows="9" [(ngModel)]="taskDescription" placeholder="Enter task description..."></textarea>
+  <p class="red" *ngIf="emptyDescriptionErr">Task description is required</p>
+
+  <p class="semi-bold mb-2">Deadline</p>
+  <ng-container  *ngIf="!selectedDate; else dateSelected">
+    <app-date-time-picker
+      [minTime]="'00:00'"
+      [maxTime]="'23:59'"
+      [reservedDates]="[]"
+      [maxLessonsADay]="24"
+      (submitted)="handleDateTimeSubmit($event)"
+    ></app-date-time-picker>
+    <p class="red" *ngIf="selectDateErr">Please select a deadline</p>
+  </ng-container>
+
+  <ng-template #dateSelected>
+    <p>Selected date: {{ dateWorker.formatDateTime(selectedDate) }}</p>
+    <button class="button mb-4" (click)="unselectDate()">Change</button>
+  </ng-template>
+
+  <button
+    class="button fill full big"
+    [class.disabled]="submitting"
+    [disabled]="submitting"
+    (click)="assign()"
+  >Assign</button>
+</div>
