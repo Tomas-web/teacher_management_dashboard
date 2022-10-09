@@ -41,4 +41,8 @@ export class NavigationComponent implements OnInit {
   public logout(): void {
     this.auth.logout();
   }
+
+  public navigateToChat(): void {
+    this.router.navigate(['chat']).then();
+  }
 }

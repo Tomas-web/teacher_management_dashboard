@@ -44,6 +44,42 @@
       gap: 0.5rem;
       margin-left: auto;
 
+      .chat-button {
+        padding: 8px;
+        border-radius: 100%;
+        cursor: pointer;
+
+        img {
+          height: 20px;
+        }
+
+        .icon-black {
+          display: block;
+        }
+
+        .icon-purple {
+          display: none;
+        }
+
+        &:hover, &:active {
+          .icon-black {
+            display: none;
+          }
+
+          .icon-purple {
+            display: block;
+          }
+        }
+
+        &:hover {
+          background: #5e60ce1c;
+        }
+
+        &:active {
+          background: #5e60ce54;
+        }
+      }
+
       .login-btn {
         border-radius: 0.5rem;
         width: 150px;
