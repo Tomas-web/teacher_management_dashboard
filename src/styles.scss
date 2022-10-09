@@ -23,7 +23,7 @@ button {
   max-width: 1536px !important;
   margin-left: auto !important;
   margin-right: auto !important;
-  padding: 0, 0.5rem !important;
+  padding: 0 0.5rem !important;
   margin-bottom: 3rem;
 }
 
@@ -45,6 +45,11 @@ p {
     line-height: 18px;
   }
 
+  &.smallest {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
   &.semi-bold {
     font-weight: 600;
   }
@@ -63,6 +68,13 @@ p {
 
   &.text-right {
     text-align: right;
+  }
+
+  &.ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -83,6 +95,19 @@ h3 {
 
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
 }
 
 .ml-auto {

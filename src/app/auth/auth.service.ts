@@ -34,7 +34,7 @@ export class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        this.profileService.getProfile().subscribe((profile) => {
+        this.profileService.getProfileData(true).subscribe((profile) => {
           this.profileService.profile = profile;
           this.router.navigate(['home']);
         });
@@ -47,6 +47,7 @@ export class AuthService {
   }
 
   public logout(): void {
+    this.profileService.profile = null;
     // Remove tokens and expiry time from localStorage
     localStorage.clear();
     this.cookieService.deleteAll('/');

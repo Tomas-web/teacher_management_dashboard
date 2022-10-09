@@ -42,6 +42,7 @@ import { AssignedHomeworksComponent } from './containers/assigned-homeworks/assi
 import {NgApexchartsModule} from "ng-apexcharts";
 import { AssignHomeworkComponent } from './common/modals/assign-homework/assign-homework.component';
 import { HomeworksListComponent } from './blocks/homeworks-list/homeworks-list.component';
+import { ChatComponent } from './containers/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { HomeworksListComponent } from './blocks/homeworks-list/homeworks-list.c
     AssignedHomeworksComponent,
     AssignHomeworkComponent,
     HomeworksListComponent,
+    ChatComponent,
   ],
   imports: [
     CommonModule,

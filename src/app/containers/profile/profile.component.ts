@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.getSpecialities();
     this.getLessonReservationForStudent();
     if (!this.profileService.profile) {
-      this.profileService.getProfile().subscribe((profile) => {
+      this.profileService.getProfileData().subscribe((profile) => {
         this.profileService.profile = profile;
         this.profile = Object.assign({}, profile);
         this.initData();

@@ -20,7 +20,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
-      this.profileService.getProfile().subscribe((profile) => {
+      this.profileService.getProfileData().subscribe((profile) => {
         this.profileService.profile = profile;
       });
     } else {

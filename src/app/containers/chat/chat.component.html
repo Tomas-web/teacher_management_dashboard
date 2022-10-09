@@ -1,0 +1,107 @@
+<div class="chat-container container">
+  <div class="chat">
+    <div class="discussions">
+      <div class="discussions-search">
+        <div (click)="searchModeShown = false" class="arrow-back">
+          <img *ngIf="searchModeShown" src="assets/ico_arrow_back.svg" alt="">
+        </div>
+        <input
+          class="default-input"
+          [(ngModel)]="teacherSearchText"
+          (focusin)="searchModeShown = true"
+          (input)="searchNewTeachers()"
+          type="text"
+          placeholder="Search new conversations..."
+        />
+      </div>
+      <ng-container *ngIf="searchModeShown; else conversationsList">
+        <ng-container *ngIf="!!newTeachers; else loadingTeachers">
+          <ng-container *ngIf="newTeachers.length > 0; else noTeachersFound">
+            <p class="mx-4 mt-4">Click on teacher to start chatting</p>
+            <div class="discussions-list">
+              <div class="discussion" (click)="onNewTeacherClicked(teacher)" *ngFor="let teacher of newTeachers">
+                <div class="avatar">
+                  <app-avatar [avatarUrl]="teacher.picture"></app-avatar>
+                </div>
+
+                <div>
+                  <p class="mb-1 semi-bold ellipsis">{{ teacher.fullName }}</p>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #noTeachersFound>
+            <p class="text-center mx-4 mt-4">Couldn't find teachers with such name</p>
+          </ng-template>
+        </ng-container>
+
+        <ng-template #loadingTeachers>
+            <p class="text-center mx-4 mt-4">Searching...</p>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #conversationsList>
+        <div class="discussions-list" *ngIf="conversations?.length > 0; else noConversations">
+          <div
+            class="discussion"
+            [class.active]="selectedConversation?.id === conversation.id"
+            (click)="onConversationSelected(conversation)"
+            *ngFor="let conversation of conversations"
+          >
+            <div *ngIf="!conversation.seen" class="new-message"></div>
+            <div class="avatar">
+              <app-avatar [avatarUrl]="conversation.user.avatarUrl"></app-avatar>
+            </div>
+
+            <div>
+              <p class="mb-1 semi-bold ellipsis">{{ conversation.user.name }}</p>
+              <p class="smallest mb-0 ellipsis">{{ conversation.latestMessage }}</p>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #noConversations>
+          <p class="text-center mx-4 mt-4">You don't have conversations yet. Search for teachers using searchbar</p>
+        </ng-template>
+      </ng-template>
+    </div>
+
+    <div class="chat-window">
+      <div class="chat-header">
+        <div class="avatar" *ngIf="!!selectedConversation">
+          <app-avatar [avatarUrl]="selectedConversation.user.avatarUrl"></app-avatar>
+        </div>
+        <h4>{{ !!selectedConversation ? selectedConversation.user.name : 'Select conversation' }}</h4>
+      </div>
+
+      <div #chatMessages class="chat-messages" (scroll)="onMessagesScrolled($event)">
+        <ng-container *ngIf="!!conversationMessagesResponse">
+          <div
+            class="chat-message"
+            [class.response]="conversationMessage.sender.id === profileService.profile.id"
+            *ngFor="let conversationMessage of conversationMessagesResponse.messages"
+          >
+
+            <p
+              class="mb-0 smallest"
+              *ngIf="conversationMessage.sender.id === profileService.profile.id"
+            >{{ dateWorker.formatTime(conversationMessage.sentAt) }}</p>
+            <div class="message">
+              <p>{{ conversationMessage.message }}</p>
+            </div>
+            <p
+              class="mb-0 smallest"
+              *ngIf="conversationMessage.sender.id !== profileService.profile.id"
+            >{{ dateWorker.formatTime(conversationMessage.sentAt) }}</p>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="chat-footer">
+        <input type="text" class="footer-input" (keydown.enter)="onSend()" [(ngModel)]="message" placeholder="Type your message here..." />
+        <button class="button fill big" (click)="onSend()" [class.disabled]="!message || message.length === 0 || !selectedConversation">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

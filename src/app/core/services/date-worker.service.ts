@@ -23,7 +23,14 @@ export class DateWorkerService {
     return `${year}-${month > 9 ? month : '0' + month}-${day > 9 ? day : '0' + day} ${hours > 9 ? hours : '0' + hours}:${minutes > 9 ? minutes : '0' + minutes}`;
   }
 
-  public formatTime(date: Date): string {
+  public formatTime(dateStr: any): string {
+    let date;
+    if (dateStr instanceof Date) {
+      date = dateStr;
+    } else {
+      date = this.getDateObj(dateStr);
+    }
+
     const hours = date.getHours();
     const minutes = date.getMinutes();
     return `${hours > 9 ? hours : '0' + hours}:${minutes > 9 ? minutes : '0' + minutes}`;

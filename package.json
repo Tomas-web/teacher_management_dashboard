@@ -28,9 +28,12 @@
     "bootstrap": "^4.5.0",
     "cropperjs": "^1.5.12",
     "i18next": "^21.6.14",
+    "net": "^1.0.2",
     "ng-apexcharts": "^1.5.12",
     "ngx-cookie-service": "^12.0.3",
     "rxjs": "~6.6.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

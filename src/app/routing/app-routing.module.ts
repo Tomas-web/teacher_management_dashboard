@@ -11,6 +11,7 @@ import {PostComponent} from "../containers/post/post.component";
 import {HomeworksComponent} from "../containers/homeworks/homeworks.component";
 import {AssignedHomeworksComponent} from "../containers/assigned-homeworks/assigned-homeworks.component";
 import {CanActivateTeacherGuard} from "../core/guards/can-activate-teacher.guard";
+import {ChatComponent} from "../containers/chat/chat.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,11 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [CanActivateDefaultGuard]
+      },
+      {
+        path: 'chat',
+        component: ChatComponent,
         canActivate: [CanActivateDefaultGuard]
       },
       {
