@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {PostsService} from "../../core/http/posts.service";
-import {PostModel} from "../../core/models/posts.model";
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {CreatePostComponent} from "../../common/modals/create-post/create-post.component";
-import {SpecialitiesService} from "../../core/http/specialities.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthService} from "../../auth/auth.service";
-import {ProfileService} from "../../core/http/profile.service";
-import {UserRoleEnum} from "../../core/enums/user-role.enum";
+import {PostsService} from '../../core/http/posts.service';
+import {PostModel} from '../../core/models/posts.model';
+import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {CreatePostComponent} from '../../common/modals/create-post/create-post.component';
+import {SpecialitiesService} from '../../core/http/specialities.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from '../../auth/auth.service';
+import {ProfileService} from '../../core/http/profile.service';
+import {UserRoleEnum} from '../../core/enums/user-role.enum';
 
 @Component({
   selector: 'app-home',

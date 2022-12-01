@@ -39,10 +39,18 @@ import { PostCardComponent } from './blocks/post-card/post-card.component';
 import { PostComponent } from './containers/post/post.component';
 import { HomeworksComponent } from './containers/homeworks/homeworks.component';
 import { AssignedHomeworksComponent } from './containers/assigned-homeworks/assigned-homeworks.component';
-import {NgApexchartsModule} from "ng-apexcharts";
+import {NgApexchartsModule} from 'ng-apexcharts';
 import { AssignHomeworkComponent } from './common/modals/assign-homework/assign-homework.component';
 import { HomeworksListComponent } from './blocks/homeworks-list/homeworks-list.component';
 import { ChatComponent } from './containers/chat/chat.component';
+import {NgxAgoraSdkNgModule} from 'ngx-agora-sdk-ng';
+import { VideoCallComponent } from './containers/video-call/video-call.component';
+import { DashboardComponent } from './containers/dashboard/dashboard.component';
+import { RootComponent } from './root/root.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { VideoCallSettingsComponent } from './common/modals/video-call-settings/video-call-settings.component';
+import { DropdownObjectsComponent } from './blocks/dropdown-objects/dropdown-objects.component';
+import { VideoCallChatComponent } from './blocks/video-call/video-call-chat/video-call-chat.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +78,12 @@ import { ChatComponent } from './containers/chat/chat.component';
     AssignHomeworkComponent,
     HomeworksListComponent,
     ChatComponent,
+    VideoCallComponent,
+    DashboardComponent,
+    RootComponent,
+    VideoCallSettingsComponent,
+    DropdownObjectsComponent,
+    VideoCallChatComponent,
   ],
   imports: [
     CommonModule,
@@ -88,6 +102,11 @@ import { ChatComponent } from './containers/chat/chat.component';
     BrowserAnimationsModule,
     NgxMatTimepickerModule,
     NgApexchartsModule,
+    NgxAgoraSdkNgModule.forRoot({
+      AppID: '80a258d7505b4ef2bfd57a9aef607545',
+      Video: { codec: 'h264', mode: 'rtc', role: 'host' }
+    }),
+    FontAwesomeModule
   ],
   providers: [
     AuthService,

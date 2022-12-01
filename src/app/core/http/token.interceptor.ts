@@ -7,7 +7,7 @@ import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor{
+export class TokenInterceptor implements HttpInterceptor {
 
   constructor(public cookieService: CookieService,
               public auth: AuthService,
@@ -34,11 +34,9 @@ export class TokenInterceptor implements HttpInterceptor{
 
     return next.handle(req).pipe(
       catchError((err) => {
-        if (err.status === 401) {
+        if (err.status === 401 || err.status === 403) {
           this.auth.logout();
           this.router.navigateByUrl('/login', {});
-        } else if (err.status === 403) {
-          this.router.navigateByUrl('/404', {});
         }
         return throwError(err);
       })

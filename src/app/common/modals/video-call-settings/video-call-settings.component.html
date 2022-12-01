@@ -1,0 +1,18 @@
+<div class="video-call-settings-container modal-container">
+  <div class="modal-header">
+    <h1 class="bold">Settings</h1>
+    <div class="modal-close" (click)="dismiss()">
+      <img class="icon-default" src="assets/ico_cross.svg" alt="">
+      <img class="icon-hovered" src="assets/ico_cross_purple.svg" alt="">
+    </div>
+  </div>
+
+  <p class="semi-bold mb-2">Incoming volume:</p>
+  <input type="range" min="0" id="remoteAudioVolume" [disabled]="!channelParameters.remoteAudioTrack" (click)="onRemoteAudioVolumeChange($event)" max="100" step="1">
+
+  <p class="semi-bold mb-2">Input device:</p>
+  <app-dropdown-objects [currentValue]="selectedAudioInputDevice" [items]="audioInputDevices" (itemSelected)="selectAudioInputDevice($event)"></app-dropdown-objects>
+
+  <p class="semi-bold mb-2">Camera:</p>
+  <app-dropdown-objects [currentValue]="selectedVideoDevice" [items]="videoDevices" (itemSelected)="selectVideoDevice($event)"></app-dropdown-objects>
+</div>

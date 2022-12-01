@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClientWrapperService} from '../http/http-client-wrapper.service';
+import {HttpClientWrapperService} from './http-client-wrapper.service';
 import {Observable} from 'rxjs';
 import {ConversationModel} from '../models/chat/conversation.model';
 import {UserModel} from '../models/user.model';
@@ -17,6 +17,10 @@ export class ChatService {
 
   public getConversation(conversationId: string): Observable<ConversationModel> {
     return this.http.get(`/chat/conversations/${conversationId}`);
+  }
+
+  public findConversationForUser(userId: string): Observable<ConversationModel> {
+    return this.http.get(`/users/${userId}/chat/conversation`);
   }
 
   public getChatTeachers(q: string): Observable<UserModel[]> {

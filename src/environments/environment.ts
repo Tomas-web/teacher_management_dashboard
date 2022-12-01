@@ -10,6 +10,8 @@ export const environment = {
   auth0_callbackUrl: window.location.protocol + '//localhost:4200/authorize',
   auth0_logoutCallbackUrl: window.location.protocol + '//localhost:4200/home',
   base_api_url: 'http://localhost:8088',
+  agora_token_api_url: 'https://teacher-searching.herokuapp.com',
+  agora_app_id: '55e40a7b1cae4227817ade1de2c8ebf4',
 };
 
 /*

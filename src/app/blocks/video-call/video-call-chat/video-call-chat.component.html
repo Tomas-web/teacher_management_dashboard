@@ -1,0 +1,35 @@
+<div class="video-call-chat-container">
+  <div class="video-call-chat-container-header">
+    <div class="close-btn" (click)="onCloseChat()">
+      <img class="icon-default" src="assets/ico_cross.svg" alt="">
+      <img class="icon-hovered" src="assets/ico_cross_purple.svg" alt="">
+    </div>
+  </div>
+  <div #chatMessages class="chat-messages" (scroll)="onMessagesScrolled($event)">
+    <ng-container *ngIf="!!conversationMessagesResponse">
+      <div
+        class="chat-message"
+        [class.response]="conversationMessage.sender.id === profileService.profile.id"
+        *ngFor="let conversationMessage of conversationMessagesResponse.messages"
+      >
+
+        <p
+          class="mb-0 smallest"
+          *ngIf="conversationMessage.sender.id === profileService.profile.id"
+        >{{ dateWorker.formatTime(conversationMessage.sentAt) }}</p>
+        <div class="message">
+          <p>{{ conversationMessage.message }}</p>
+        </div>
+        <p
+          class="mb-0 smallest"
+          *ngIf="conversationMessage.sender.id !== profileService.profile.id"
+        >{{ dateWorker.formatTime(conversationMessage.sentAt) }}</p>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="chat-footer">
+    <input type="text" class="footer-input" (keydown.enter)="onSend()" [(ngModel)]="message" placeholder="Type your message here..." />
+    <button class="button fill big" (click)="onSend()" [class.disabled]="!message || message.length === 0">Send</button>
+  </div>
+</div>

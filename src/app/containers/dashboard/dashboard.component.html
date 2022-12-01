@@ -1,0 +1,39 @@
+<div class="dashboard-container">
+  <div class="sidenav">
+    <a class="logo" [routerLink]="['../home']">Extra lessons</a>
+
+    <p class="section-text small">Student sections</p>
+    <a [routerLink]="['profile']" class="sidenav-btn">
+      <fa-icon class="black-icon" [icon]="faUser" [size]="'lg'" [classes]="['black-icon']"></fa-icon>
+      <fa-icon class="purple-icon" [icon]="faUser" [size]="'lg'" [classes]="['purple-icon']" [styles]="{'color': '#5E60CE'}"></fa-icon>
+      <fa-icon class="white-icon" [icon]="faUser" [size]="'lg'" [classes]="['white-icon']" [styles]="{'color': '#FFFFFF'}"></fa-icon>
+      <p class="mb-0">Profile</p>
+    </a>
+    <a [routerLink]="['homeworks']" class="sidenav-btn">
+      <fa-icon class="black-icon" [icon]="faBookOpen" [size]="'lg'" [classes]="['black-icon']"></fa-icon>
+      <fa-icon class="purple-icon" [icon]="faBookOpen" [size]="'lg'" [classes]="['purple-icon']" [styles]="{'color': '#5E60CE'}"></fa-icon>
+      <fa-icon class="white-icon" [icon]="faBookOpen" [size]="'lg'" [classes]="['white-icon']" [styles]="{'color': '#FFFFFF'}"></fa-icon>
+      <p class="mb-0">My homework</p>
+    </a>
+    <a [routerLink]="['chat']" class="sidenav-btn">
+      <fa-icon class="black-icon" [icon]="faComments" [size]="'lg'" [classes]="['black-icon']"></fa-icon>
+      <fa-icon class="purple-icon" [icon]="faComments" [size]="'lg'" [classes]="['purple-icon']" [styles]="{'color': '#5E60CE'}"></fa-icon>
+      <fa-icon class="white-icon" [icon]="faComments" [size]="'lg'" [classes]="['white-icon']" [styles]="{'color': '#FFFFFF'}"></fa-icon>
+      <p class="mb-0">Chat</p>
+    </a>
+
+    <ng-container *ngIf="profileService.profile?.roleId === userRolesEnum.TEACHER">
+      <p class="section-text small">Teacher sections</p>
+      <a [routerLink]="['assigned-homeworks']" class="sidenav-btn">
+        <fa-icon class="black-icon" [icon]="faBook" [size]="'lg'" [classes]="['black-icon']"></fa-icon>
+        <fa-icon class="purple-icon" [icon]="faBook" [size]="'lg'" [classes]="['purple-icon']" [styles]="{'color': '#5E60CE'}"></fa-icon>
+        <fa-icon class="white-icon" [icon]="faBook" [size]="'lg'" [classes]="['white-icon']" [styles]="{'color': '#FFFFFF'}"></fa-icon>
+        <p class="mb-0">Assigned homeworks</p>
+      </a>
+    </ng-container>
+  </div>
+
+  <div class="dashboard-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+@import "src/_colors";
+
+.video-call-settings-container {
+  input[type="range"] {
+    display: block;
+    width: 50%;
+    margin-bottom: 1rem;
+  }
+
+  app-dropdown-objects {
+    display: block;
+    margin-bottom: 1rem;
+  }
+}

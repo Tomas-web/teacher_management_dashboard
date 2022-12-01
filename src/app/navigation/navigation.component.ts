@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth/auth.service';
-import {ProfileService} from "../core/http/profile.service";
-import {NotFoundComponent} from "../not-found/not-found.component";
-import {UserRoleEnum} from "../core/enums/user-role.enum";
+import {ProfileService} from '../core/http/profile.service';
 
 @Component({
   selector: 'app-navigation',
@@ -11,11 +8,8 @@ import {UserRoleEnum} from "../core/enums/user-role.enum";
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  public userRoleEnum = UserRoleEnum;
 
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              public profileService: ProfileService,
+  constructor(public profileService: ProfileService,
               public auth: AuthService) { }
 
   ngOnInit(): void {
@@ -26,12 +20,6 @@ export class NavigationComponent implements OnInit {
     } else {
       this.profileService.profile = null;
     }
-
-    if (this.route.firstChild && this.route.firstChild.component !== NotFoundComponent) {
-      return;
-    }
-
-    this.router.navigate(['home']).then();
   }
 
   public onClickLogin(): void {
@@ -40,9 +28,5 @@ export class NavigationComponent implements OnInit {
 
   public logout(): void {
     this.auth.logout();
-  }
-
-  public navigateToChat(): void {
-    this.router.navigate(['chat']).then();
   }
 }

@@ -3,11 +3,9 @@
     <a class="logo" [routerLink]="['home']">Extra lessons</a>
 
     <div class="navigation-links">
-      <a [routerLink]="['home']">Home</a>
+      <a [routerLink]="['../home']">Home</a>
       <ng-container *ngIf="auth.isAuthenticated()">
-        <a [routerLink]="['profile']">Profile</a>
-        <a [routerLink]="['homeworks']">My homeworks</a>
-        <a [routerLink]="['assigned-homeworks']" *ngIf="profileService.profile?.roleId === userRoleEnum.TEACHER">Assigned homeworks</a>
+        <a [routerLink]="['../dashboard']">Dashboard</a>
       </ng-container>
     </div>
 
@@ -18,10 +16,6 @@
       </ng-container>
 
       <ng-template #logoutBtn>
-        <div class="chat-button" (click)="navigateToChat()">
-          <img class="icon-black" src="assets/ico_chat.svg" alt="">
-          <img class="icon-purple" src="assets/ico_chat_purple.svg" alt="">
-        </div>
         <button class="register-btn" (click)="logout()">Logout</button>
       </ng-template>
     </div>

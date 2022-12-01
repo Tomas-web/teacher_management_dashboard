@@ -4,19 +4,23 @@ import {HomeComponent} from '../containers/home/home.component';
 import {ProfileComponent} from '../containers/profile/profile.component';
 import {NavigationComponent} from '../navigation/navigation.component';
 import {AuthorizationComponent} from '../auth/authorization/authorization.component';
-import {CanActivateDefaultGuard} from "../core/guards/can-activate-default.guard";
-import {UserComponent} from "../containers/user/user.component";
-import {NotFoundComponent} from "../not-found/not-found.component";
-import {PostComponent} from "../containers/post/post.component";
-import {HomeworksComponent} from "../containers/homeworks/homeworks.component";
-import {AssignedHomeworksComponent} from "../containers/assigned-homeworks/assigned-homeworks.component";
-import {CanActivateTeacherGuard} from "../core/guards/can-activate-teacher.guard";
-import {ChatComponent} from "../containers/chat/chat.component";
+import {CanActivateDefaultGuard} from '../core/guards/can-activate-default.guard';
+import {UserComponent} from '../containers/user/user.component';
+import {NotFoundComponent} from '../not-found/not-found.component';
+import {PostComponent} from '../containers/post/post.component';
+import {HomeworksComponent} from '../containers/homeworks/homeworks.component';
+import {AssignedHomeworksComponent} from '../containers/assigned-homeworks/assigned-homeworks.component';
+import {CanActivateTeacherGuard} from '../core/guards/can-activate-teacher.guard';
+import {ChatComponent} from '../containers/chat/chat.component';
+import {VideoCallComponent} from '../containers/video-call/video-call.component';
+import {DashboardComponent} from '../containers/dashboard/dashboard.component';
+import {RootComponent} from '../root/root.component';
+import {ProfileResolver} from '../core/resolvers/profile.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: NavigationComponent,
+    component: RootComponent,
     children: [
       {
         path: 'home',
@@ -29,24 +33,34 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'homeworks',
-        component: HomeworksComponent,
+        path: 'users/:userId/call',
+        component: VideoCallComponent,
         canActivate: [CanActivateDefaultGuard],
+        resolve: {profile: ProfileResolver}
       },
       {
-        path: 'assigned-homeworks',
-        component: AssignedHomeworksComponent,
+        path: 'dashboard',
+        component: DashboardComponent,
         canActivate: [CanActivateDefaultGuard],
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        canActivate: [CanActivateDefaultGuard]
-      },
-      {
-        path: 'chat',
-        component: ChatComponent,
-        canActivate: [CanActivateDefaultGuard]
+        canActivateChild: [CanActivateDefaultGuard],
+        children: [
+          {
+            path: 'homeworks',
+            component: HomeworksComponent,
+          },
+          {
+            path: 'assigned-homeworks',
+            component: AssignedHomeworksComponent,
+          },
+          {
+            path: 'profile',
+            component: ProfileComponent,
+          },
+          {
+            path: 'chat',
+            component: ChatComponent,
+          },
+        ]
       },
       {
         path: 'authorize',

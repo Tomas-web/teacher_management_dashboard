@@ -73,6 +73,20 @@
           <app-avatar [avatarUrl]="selectedConversation.user.avatarUrl"></app-avatar>
         </div>
         <h4>{{ !!selectedConversation ? selectedConversation.user.name : 'Select conversation' }}</h4>
+        <ng-container *ngIf="selectedConversation">
+          <ng-container *ngIf="!selectedConversation.callRoomDetails; else joinCallBtn">
+            <button class="button ml-auto" (click)="startVideoCall(selectedConversation.user.id)">Call</button>
+          </ng-container>
+
+          <ng-template #joinCallBtn>
+            <button
+              class="button ml-auto"
+              (click)="joinVideoCall(selectedConversation.callRoomDetails.token, selectedConversation.callRoomDetails.channelName, selectedConversation.callRoomDetails.callerId)"
+            >
+              Join call
+            </button>
+          </ng-template>
+        </ng-container>
       </div>
 
       <div #chatMessages class="chat-messages" (scroll)="onMessagesScrolled($event)">

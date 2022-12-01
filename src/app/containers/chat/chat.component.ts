@@ -3,11 +3,14 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {ProfileService} from '../../core/http/profile.service';
 import {ConversationModel} from '../../core/models/chat/conversation.model';
-import {ChatService} from '../../core/services/chat.service';
+import {ChatService} from '../../core/http/chat.service';
 import {UserModel} from '../../core/models/user.model';
 import {ChatMessageModel, ChatMessagesWithPagesModel} from '../../core/models/chat/chat-messages.model';
 import {Subscription} from 'rxjs';
 import {DateWorkerService} from '../../core/services/date-worker.service';
+import {CallsService} from '../../core/http/calls.service';
+import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -35,7 +38,9 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   constructor(
     public profileService: ProfileService,
     public dateWorker: DateWorkerService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private callsService: CallsService,
+    private router: Router,
   ){}
 
   ngOnInit(): void {
@@ -61,8 +66,20 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
+  startVideoCall(targetId: string): void {
+    this.callsService.createCallRoom(targetId).subscribe((res) => {
+      this.router.navigate([`users/${targetId}/call`], {
+        queryParams: {token: res.token, name: res.channelName, callerId: this.profileService.profile.id}
+      });
+    });
+  }
+
+  joinVideoCall(token: string, channelName: string, callerId: string): void {
+    this.router.navigate([`users/${callerId}/call`], {queryParams: {token, name: channelName, callerId}});
+  }
+
   connect(): void {
-    const socket = new SockJS('http://localhost:8088/api/ws');
+    const socket = new SockJS(`${environment.base_api_url}/api/ws`);
     this.stompClient = Stomp.over(socket);
     this.stompClient.connect({}, (frame) => {
       this.stompClient.subscribe(`/user/${this.profileService.profile.id}/private`, (payload) => {
@@ -143,6 +160,7 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
         name: teacher.fullName,
         avatarUrl: teacher.picture
       },
+      callRoomDetails: null,
       latestMessage: '',
       seen: true,
       sentAt: ''
