@@ -393,6 +393,13 @@ textarea {
     color: #FFFFFF;
   }
 
+  &.small {
+    width: 75px;
+    height: 31px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
   &.big {
     height: 51px;
     width: 280px;

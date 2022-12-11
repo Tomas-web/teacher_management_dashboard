@@ -10,4 +10,11 @@ export interface Homework {
   student: UserRefModel;
   content: string;
   deadline: string;
+  uploads: {
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    downloadUri: string;
+    uploadedAt: string;
+  }[];
 }

@@ -7,6 +7,22 @@
   margin-bottom: 2rem;
   padding: 1rem;
 
+  p {
+    &.self-start {
+      align-self: flex-start;
+    }
+
+    &.mt-4 {
+      margin-top: 1rem;
+    }
+  }
+
+  .button {
+    &.self-start {
+      align-self: flex-start;
+    }
+  }
+
   .assigned-homeworks-content {
     display: flex;
     gap: 2rem;
@@ -84,6 +100,63 @@
         margin-bottom: 0.5rem;
       }
 
+      .file-input {
+        display: none;
+      }
+
+      .file-upload {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      .uploaded-files {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        max-height: 200px;
+        width: 100%;
+        overflow-y: auto;
+        align-self: flex-start;
+        margin-bottom: 1rem;
+
+        .uploaded-file {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          max-width: 100px;
+
+          img {
+            height: 22px;
+          }
+
+          p {
+            word-break: break-all;
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      .upload-btn {
+        display: flex;
+        align-items: center;
+        border-radius: 100%;
+        padding: 0.3rem;
+        background: $primaryColor;
+
+        img {
+          height: 25px;
+        }
+      }
+
       .homework-description::-webkit-scrollbar {
         width: 2px;
       }
@@ -98,8 +171,9 @@
       }
 
       .homework-description {
+        flex: 1;
         width: 100%;
-        max-height: 400px;
+        max-height: 257px;
         overflow-y: auto;
       }
     }

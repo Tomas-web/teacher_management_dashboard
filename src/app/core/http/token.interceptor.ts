@@ -26,6 +26,11 @@ export class TokenInterceptor implements HttpInterceptor {
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
       });
+    } else if (req.url.includes('download')) {
+      req = req.clone({
+        setHeaders: { Authorization: `Bearer ${token}` },
+        responseType: 'blob'
+      });
     } else {
       req = req.clone({
         setHeaders: headers,

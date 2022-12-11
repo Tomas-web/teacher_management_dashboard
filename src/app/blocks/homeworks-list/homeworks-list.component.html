@@ -33,6 +33,45 @@
         <div class="homework-description">
           <p>{{ selectedHomework.content }}</p>
         </div>
+
+        <p class="semi-bold self-start mt-4">Uploaded files:</p>
+
+        <p *ngIf="!selectedHomework.uploads || selectedHomework.uploads.length === 0; else uploadedFiles">There are no uploaded files</p>
+
+        <ng-template #uploadedFiles>
+          <div class="uploaded-files">
+            <div class="uploaded-file" *ngFor="let file of selectedHomework.uploads">
+              <img src="assets/ico_file.svg" alt="" />
+              <p>{{ file.fileName }}</p>
+
+              <button class="button green small" (click)="downloadFile(file.fileName, selectedHomework.id)">Download</button>
+              <button class="button red small" *ngIf="!forTeacher" (click)="deleteFile(file.fileName, selectedHomework.id)">Delete</button>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-container *ngIf="!forTeacher">
+          <p class="green" *ngIf="showFileDeletedMessage">File deleted successfully</p>
+
+          <input type="file" class="file-input" multiple="multiple"
+                 (change)="onFileSelected($event)" #fileUpload>
+
+          <div class="file-upload">
+            <p *ngIf="selectedFiles.length === 0; else selectedFilesList">Click to select files</p>
+            <ng-template #selectedFilesList>
+              <p>Selected files:</p>
+              <p *ngFor="let file of selectedFiles">{{ file.name }}</p>
+            </ng-template>
+
+            <button class="upload-btn"
+                    (click)="fileUpload.click()">
+              <img src="assets/ico_upload_white.svg" alt="">
+            </button>
+          </div>
+
+          <button *ngIf="selectedFiles.length > 0" class="button self-start" (click)="uploadFiles()">Upload</button>
+          <p class="green" *ngIf="showUploadedSuccessfullyMessage">Files uploaded successfully</p>
+        </ng-container>
       </div>
     </ng-container>
 
