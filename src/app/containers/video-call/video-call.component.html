@@ -1,28 +1,33 @@
 <div class="video-call-container">
-  <app-video-call-chat *ngIf="isChatOpened" [userId]="targetUserId" (closeChat)="isChatOpened = false"></app-video-call-chat>
-  <div #remotePlayerContainer class="remote-player-container" [hidden]="!channelParameters.remoteVideoTrack?.isPlaying"></div>
-
-  <div #localPlayerContainer class="local-player-container" [class.full-screen]="!channelParameters.remoteVideoTrack?.isPlaying"></div>
-
-
-  <div class="action-buttons">
-    <div class="white-btn" (click)="onMicMuteBtnClicked()">
-      <img [src]="'assets/' + (isMutedMic ? 'ico_muted_mic' : 'ico_mic') + '.svg'" alt="">
-    </div>
-    <div class="white-btn" (click)="onMuteVideoBtnClicked()">
-      <img [src]="'assets/' + (isMuteVideo ? 'ico_video_muted' : 'ico_video') + '.svg'" alt="">
-    </div>
-    <div class="white-btn" (click)="shareScreen()">
-      <img [src]="'assets/' + (isSharingEnabled ? 'ico_stop_screen_share' : 'ico_screen_share') + '.svg'" alt="">
-    </div>
-    <div class="white-btn" (click)="toggleChat()">
-      <img src="assets/ico_chat.svg" alt="">
-    </div>
-    <div class="white-btn" (click)="openSettings()">
-      <img src="assets/ico_settings.svg" alt="">
-    </div>
-    <div class="end-call-btn" (click)="leaveCall()">
-      <img src="assets/ico_end_call_white.svg" alt="">
-    </div>
+  <div class="call-not-exists" *ngIf="isCallInvalid; else callValid">
+    <p>Call doesn't exist</p>
+    <button class="button" (click)="navigateToChat()">Back to chat</button>
   </div>
+
+  <ng-template #callValid>
+    <app-video-call-chat *ngIf="isChatOpened" [userId]="targetUserId" (closeChat)="isChatOpened = false"></app-video-call-chat>
+    <div #remotePlayerContainer class="remote-player-container" [hidden]="!channelParameters.remoteVideoTrack?.isPlaying"></div>
+
+    <div #localPlayerContainer class="local-player-container" [class.full-screen]="!channelParameters.remoteVideoTrack?.isPlaying"></div>
+    <div class="action-buttons" *ngIf="isCallStarted">
+      <div class="white-btn" (click)="onMicMuteBtnClicked()">
+        <img [src]="'assets/' + (isMutedMic ? 'ico_muted_mic' : 'ico_mic') + '.svg'" alt="">
+      </div>
+      <div class="white-btn" (click)="onMuteVideoBtnClicked()">
+        <img [src]="'assets/' + (isMuteVideo ? 'ico_video_muted' : 'ico_video') + '.svg'" alt="">
+      </div>
+      <div class="white-btn" (click)="shareScreen()">
+        <img [src]="'assets/' + (isSharingEnabled ? 'ico_stop_screen_share' : 'ico_screen_share') + '.svg'" alt="">
+      </div>
+      <div class="white-btn" (click)="toggleChat()">
+        <img src="assets/ico_chat.svg" alt="">
+      </div>
+      <div class="white-btn" (click)="openSettings()">
+        <img src="assets/ico_settings.svg" alt="">
+      </div>
+      <div class="end-call-btn" (click)="leaveCall()">
+        <img src="assets/ico_end_call_white.svg" alt="">
+      </div>
+    </div>
+  </ng-template>
 </div>

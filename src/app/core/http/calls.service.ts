@@ -8,11 +8,15 @@ export class CallsService {
   constructor(private http: HttpClientWrapperService) {
   }
 
+  public validateCallRoom(callerId: string, targetId: string, token: string, channelName: string): Observable<any> {
+    return this.http.get(`/users/${targetId}/call-room/validate?token=${token}&channel_name=${channelName}&caller_id=${callerId}`);
+  }
+
   public createCallRoom(targetId: string): Observable<CreateCallRoomResponseModel> {
-    return this.http.post(`/user/${targetId}/call-room`, {});
+    return this.http.post(`/users/${targetId}/call-room`, {});
   }
 
   public deleteCallRoom(targetId: string): Observable<any> {
-    return this.http.delete(`/user/${targetId}/call-room`, {});
+    return this.http.delete(`/users/${targetId}/call-room`, {});
   }
 }

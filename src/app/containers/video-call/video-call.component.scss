@@ -77,4 +77,13 @@
       }
     }
   }
+
+  .call-not-exists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: auto;
+    color: #FFFFFF;
+  }
 }

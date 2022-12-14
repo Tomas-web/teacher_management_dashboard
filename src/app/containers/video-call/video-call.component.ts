@@ -60,6 +60,9 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
 
   targetUserId: string;
 
+  isCallInvalid = false;
+  isCallStarted = false;
+
   private modalRef: NgbModalRef;
   private agoraEngine: IAgoraRTCClient;
   private callerId: string;
@@ -80,8 +83,15 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
       this.options.channel = this.route.snapshot.queryParams.name;
       this.options.token = this.route.snapshot.queryParams.token;
       this.callerId = this.route.snapshot.queryParams.callerId;
-      this.startBasicCall();
-      this.joinCall();
+
+      this.callsService.validateCallRoom(this.callerId, this.targetUserId, this.options.token, this.options.channel).subscribe(() => {
+        this.isCallInvalid = false;
+        this.startBasicCall();
+        this.joinCall();
+        this.isCallStarted = true;
+      }, () => {
+        this.isCallInvalid = true;
+      });
     });
   }
 
@@ -275,7 +285,7 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private navigateToChat(): void {
+  public navigateToChat(): void {
     this.router.navigate(['dashboard/chat']);
   }
 }
