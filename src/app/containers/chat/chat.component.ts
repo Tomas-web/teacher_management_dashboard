@@ -68,14 +68,32 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   startVideoCall(targetId: string): void {
     this.callsService.createCallRoom(targetId).subscribe((res) => {
+      const callMessage = {
+        callerId: this.profileService.profile.id,
+        targetId,
+        token: res.token,
+        channelName: res.channelName,
+        status: 'started'
+      };
+      this.stompClient.send(
+        '/api/private-call',
+        {},
+        JSON.stringify(callMessage)
+      );
       this.router.navigate([`users/${targetId}/call`], {
         queryParams: {token: res.token, name: res.channelName, callerId: this.profileService.profile.id}
       });
     });
   }
 
-  joinVideoCall(token: string, channelName: string, callerId: string): void {
-    this.router.navigate([`users/${callerId}/call`], {queryParams: {token, name: channelName, callerId}});
+  joinVideoCall(token: string, channelName: string, targetId: string, callerId: string): void {
+    let url: string;
+    if (targetId === callerId) {
+      url = `users/${this.profileService.profile.id}/call`;
+    } else {
+      url = `users/${targetId}/call`;
+    }
+    this.router.navigate([url], {queryParams: {token, name: channelName, callerId}});
   }
 
   connect(): void {
@@ -105,6 +123,24 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
               this.onConversationSelected(convo);
             }
           });
+        }
+      });
+
+      this.stompClient.subscribe(`/user/${this.profileService.profile.id}/call`, (payload) => {
+        const body = JSON.parse(payload.body);
+
+        if (body.status === 'started') {
+          const convo = this.conversations.find(c => c.user.id === body.callerId);
+
+          if (!convo) {
+            return;
+          }
+
+          convo.callRoomDetails = {
+            token: body.token,
+            callerId: body.callerId,
+            channelName: body.channelName
+          };
         }
       });
     });

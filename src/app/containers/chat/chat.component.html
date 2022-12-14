@@ -81,7 +81,11 @@
           <ng-template #joinCallBtn>
             <button
               class="button ml-auto"
-              (click)="joinVideoCall(selectedConversation.callRoomDetails.token, selectedConversation.callRoomDetails.channelName, selectedConversation.callRoomDetails.callerId)"
+              (click)="joinVideoCall(
+              selectedConversation.callRoomDetails.token,
+               selectedConversation.callRoomDetails.channelName,
+                selectedConversation.user.id,
+                 selectedConversation.callRoomDetails.callerId)"
             >
               Join call
             </button>
