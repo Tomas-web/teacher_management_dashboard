@@ -1,11 +1,11 @@
 <div class="header">
   <div class="header-content">
-    <a class="logo" [routerLink]="['home']">Extra lessons</a>
+    <a class="logo" [routerLink]="['home']" [relativeTo]="null">Extra lessons</a>
 
     <div class="navigation-links">
-      <a [routerLink]="['../home']">Home</a>
+      <a [routerLink]="['home']" [relativeTo]="null">Home</a>
       <ng-container *ngIf="auth.isAuthenticated()">
-        <a [routerLink]="['../dashboard']">Dashboard</a>
+        <a [routerLink]="['dashboard']" [relativeTo]="null">Dashboard</a>
       </ng-container>
     </div>
 
@@ -21,5 +21,3 @@
     </div>
   </div>
 </div>
-
-<router-outlet></router-outlet>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserRoleEnum} from '../../core/enums/user-role.enum';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfileService} from '../../core/http/profile.service';
-import { faUser, faBook, faBookOpen, faComments } from '@fortawesome/free-solid-svg-icons';
+import {faUser, faBook, faBookOpen, faComments, faChalkboardTeacher} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   faBook = faBook;
   faBookOpen = faBookOpen;
   faComments = faComments;
+  faChalkboardTeacher = faChalkboardTeacher;
 
   constructor(
     private route: ActivatedRoute,

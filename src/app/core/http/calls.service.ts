@@ -9,7 +9,7 @@ export class CallsService {
   }
 
   public validateCallRoom(callerId: string, targetId: string, token: string, channelName: string): Observable<any> {
-    return this.http.get(`/users/${targetId}/call-room/validate?token=${token}&channel_name=${channelName}&caller_id=${callerId}`);
+    return this.http.post(`/users/${targetId}/call-room/validate`, {channelName, callerId, token});
   }
 
   public createCallRoom(targetId: string): Observable<CreateCallRoomResponseModel> {

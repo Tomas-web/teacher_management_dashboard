@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {PostsService} from '../../core/http/posts.service';
 import {PostModel} from '../../core/models/posts.model';
 import {NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
 
   constructor(public profileService: ProfileService,
               public auth: AuthService,
+              public ref: ChangeDetectorRef,
               private postsService: PostsService,
               private specialitiesService: SpecialitiesService,
               private modalService: NgbModal,
@@ -53,8 +54,18 @@ export class HomeComponent implements OnInit {
     this.getSpecialities();
   }
 
+  public onRouteActivate(): void {
+    this.hidePostsList = true;
+    this.ref.detectChanges();
+  }
+
+  public onRouteDeactivate(): void {
+    this.hidePostsList = false;
+    this.ref.detectChanges();
+  }
+
   public handlePostClick(id: string): void {
-    this.router.navigate(['posts', id], {relativeTo: this.route}).then();
+    this.router.navigate(['posts', id], {relativeTo: this.route});
   }
 
   public openCreatePostModal(): void {

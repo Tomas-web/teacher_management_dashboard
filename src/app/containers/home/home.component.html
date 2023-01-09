@@ -10,8 +10,9 @@
 
   <p class="green" *ngIf="showPostCreated">Post created successfully!</p>
 
+  <p class="small red" *ngIf="pricesErr">Lowest price cannot be bigger than highest price</p>
   <div class="filters">
-    <p class="semi-bold mb-2">Price (Eur):</p>
+    <p class="semi-bold">Price (Eur):</p>
     <div class="price-filters">
       <p class="small">From:</p>
       <input
@@ -30,18 +31,15 @@
         [(ngModel)]="highestPrice"
       >
     </div>
-    <p class="small red" *ngIf="pricesErr">Lowest price cannot be bigger than highest price</p>
-
-    <p class="semi-bold mb-2">Select minimal rating:</p>
+    <p class="semi-bold">Select minimal rating:</p>
     <app-dropdown [currentValue]="selectedRating" [items]="ratings" (itemSelected)="selectRating($event)"></app-dropdown>
 
-    <p class="semi-bold mb-2">Speciality:</p>
+    <p class="semi-bold">Speciality:</p>
     <app-dropdown [currentValue]="selectedSpeciality" [items]="specialities" (itemSelected)="selectSpeciality($event)"></app-dropdown>
 
-    <p class="semi-bold mb-2">Sort by:</p>
+    <p class="semi-bold">Sort by:</p>
     <app-dropdown [currentValue]="selectedSortBy" [items]="sortByList" (itemSelected)="selectSortBy($event)"></app-dropdown>
 
-    <p class="semi-bold mb-2">Search by text:</p>
     <input class="default-input" [(ngModel)]="searchString" type="text" placeholder="Search by title, teacher name or description...">
 
     <button class="button fill full big" (click)="onSearchClicked()">Search</button>
@@ -65,4 +63,4 @@
   </div>
 </div>
 
-<router-outlet (activate)="hidePostsList = true" (deactivate)="hidePostsList = false"></router-outlet>
+<router-outlet (activate)="onRouteActivate()" (deactivate)="onRouteDeactivate()"></router-outlet>

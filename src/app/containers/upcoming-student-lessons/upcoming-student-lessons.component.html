@@ -1,0 +1,16 @@
+<div class="student-lessons">
+  <h1 class="mb-4">Upcoming lessons as student:</h1>
+  <div class="upcoming-lessons">
+    <ng-container *ngIf="studentLessonReservations?.length > 0; else noUpcomingLessons">
+      <app-upcoming-lesson
+        *ngFor="let reservation of studentLessonReservations"
+        [lessonReservation]="reservation"
+        [showForTeacher]="false"
+      ></app-upcoming-lesson>
+    </ng-container>
+  </div>
+
+  <ng-template #noUpcomingLessons>
+    <p>No upcoming lessons...</p>
+  </ng-template>
+</div>

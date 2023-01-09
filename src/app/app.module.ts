@@ -51,6 +51,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { VideoCallSettingsComponent } from './common/modals/video-call-settings/video-call-settings.component';
 import { DropdownObjectsComponent } from './blocks/dropdown-objects/dropdown-objects.component';
 import { VideoCallChatComponent } from './blocks/video-call/video-call-chat/video-call-chat.component';
+import { UpcomingStudentLessonsComponent } from './containers/upcoming-student-lessons/upcoming-student-lessons.component';
+import { UpcomingTeacherLessonsComponent } from './containers/upcoming-teacher-lessons/upcoming-teacher-lessons.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { VideoCallChatComponent } from './blocks/video-call/video-call-chat/vide
     VideoCallSettingsComponent,
     DropdownObjectsComponent,
     VideoCallChatComponent,
+    UpcomingStudentLessonsComponent,
+    UpcomingTeacherLessonsComponent,
   ],
   imports: [
     CommonModule,

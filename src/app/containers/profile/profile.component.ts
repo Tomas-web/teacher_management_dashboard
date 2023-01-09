@@ -33,9 +33,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public specialities: string[];
   public filteredSpecialities: string[];
 
-  public studentLessonReservations: LessonReservationModel[];
-  public teacherLessonReservations: LessonReservationModel[];
-
   public workingTimesErr = false;
   public submitting: boolean;
   public success: boolean;
@@ -65,7 +62,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getSpecialities();
-    this.getLessonReservationForStudent();
     if (!this.profileService.profile) {
       this.profileService.getProfileData().subscribe((profile) => {
         this.profileService.profile = profile;
@@ -84,7 +80,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (this.profile.roleId === UserRoleEnum.TEACHER) {
       this.getPostViews();
     }
-    this.getLessonReservationForTeacher();
     this.createGeneralUserForm();
     this.createTeacherForm();
   }
@@ -288,18 +283,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     return false;
-  }
-
-  private getLessonReservationForStudent(): void {
-    this.profileService.getLessonsReservations().subscribe((res) => {
-      this.studentLessonReservations = res.lessonReservations;
-    });
-  }
-
-  private getLessonReservationForTeacher(): void {
-    this.usersService.getReservedLessons(this.profile.id).subscribe((res) => {
-      this.teacherLessonReservations = res.lessonReservations;
-    });
   }
 
   private createGeneralUserForm(): void {

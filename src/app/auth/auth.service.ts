@@ -3,7 +3,7 @@ import * as auth0 from 'auth0-js';
 import {AUTH_CONFIG} from './auth0-variabled';
 import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
-import {ProfileService} from "../core/http/profile.service";
+import {ProfileService} from '../core/http/profile.service';
 
 @Injectable()
 export class AuthService {

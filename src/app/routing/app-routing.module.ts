@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from '../containers/home/home.component';
 import {ProfileComponent} from '../containers/profile/profile.component';
-import {NavigationComponent} from '../navigation/navigation.component';
 import {AuthorizationComponent} from '../auth/authorization/authorization.component';
 import {CanActivateDefaultGuard} from '../core/guards/can-activate-default.guard';
 import {UserComponent} from '../containers/user/user.component';
@@ -16,6 +15,12 @@ import {VideoCallComponent} from '../containers/video-call/video-call.component'
 import {DashboardComponent} from '../containers/dashboard/dashboard.component';
 import {RootComponent} from '../root/root.component';
 import {ProfileResolver} from '../core/resolvers/profile.resolver';
+import {
+  UpcomingStudentLessonsComponent
+} from '../containers/upcoming-student-lessons/upcoming-student-lessons.component';
+import {
+  UpcomingTeacherLessonsComponent
+} from '../containers/upcoming-teacher-lessons/upcoming-teacher-lessons.component';
 
 const routes: Routes = [
   {
@@ -60,6 +65,14 @@ const routes: Routes = [
             path: 'chat',
             component: ChatComponent,
           },
+          {
+            path: 'student-lessons',
+            component: UpcomingStudentLessonsComponent,
+          },
+          {
+            path: 'teacher-lessons',
+            component: UpcomingTeacherLessonsComponent,
+          }
         ]
       },
       {

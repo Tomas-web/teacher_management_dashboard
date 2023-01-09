@@ -159,33 +159,5 @@
       <p class="green" *ngIf="success">Changes saved!</p>
     </div>
     <p class="red" *ngIf="savingError">Something went wrong while saving profile details. Please try again later.</p>
-
-
-    <h3 class="mb-4">Upcoming lessons as student:</h3>
-    <div class="upcoming-lessons">
-      <ng-container *ngIf="studentLessonReservations?.length > 0; else noUpcomingLessons">
-        <app-upcoming-lesson
-          *ngFor="let reservation of studentLessonReservations"
-          [lessonReservation]="reservation"
-          [showForTeacher]="false"
-        ></app-upcoming-lesson>
-      </ng-container>
-    </div>
-
-    <h3 class="mb-4">Upcoming lessons as teacher:</h3>
-
-    <div class="upcoming-lessons">
-      <ng-container *ngIf="teacherLessonReservations?.length > 0; else noUpcomingLessons">
-        <app-upcoming-lesson
-          *ngFor="let reservation of teacherLessonReservations"
-          [lessonReservation]="reservation"
-          [showForTeacher]="true"
-        ></app-upcoming-lesson>
-      </ng-container>
-    </div>
   </div>
 </div>
-
-<ng-template #noUpcomingLessons>
-  <p>No upcoming lessons...</p>
-</ng-template>

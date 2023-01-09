@@ -167,14 +167,22 @@ export class VideoCallComponent implements OnInit, AfterViewInit {
       }
 
       this.remoteUserOnCall = true;
+    });
 
-      this.agoraEngine.on('user-unpublished', u => {
-        this.remoteUserOnCall = false;
+    this.agoraEngine.on('user-left', u => {
+      this.remoteUserOnCall = false;
 
-        if (this.callerId !== this.profileService.profile.id) {
-          this.leaveCall().then(() => this.navigateToChat());
-        }
-      });
+      if (this.callerId !== this.profileService.profile.id) {
+        this.leaveCall().then(() => this.navigateToChat());
+      }
+    });
+
+    this.agoraEngine.on('user-unpublished', u => {
+      this.remoteUserOnCall = false;
+
+      if (this.callerId !== this.profileService.profile.id) {
+        this.leaveCall().then(() => this.navigateToChat());
+      }
     });
 
     this.agoraEngine.on('token-privilege-will-expire', async () => {});
