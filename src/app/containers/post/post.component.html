@@ -30,5 +30,5 @@
       <p>{{ post.description }}</p>
     </div>
   </div>
-  <button class="button fill big ml-auto" (click)="navigateToAuthor()">Schedule lesson</button>
+  <button class="button fill big ml-auto" [class.disabled]="!auth.isAuthenticated()" (click)="navigateToAuthor()">Schedule lesson</button>
 </div>

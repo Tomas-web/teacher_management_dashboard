@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {PostModel} from "../../core/models/posts.model";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PostsService} from "../../core/http/posts.service";
+import {PostModel} from '../../core/models/posts.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PostsService} from '../../core/http/posts.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -11,7 +12,8 @@ import {PostsService} from "../../core/http/posts.service";
 export class PostComponent implements OnInit {
   public post: PostModel;
 
-  constructor(private route: ActivatedRoute,
+  constructor(public auth: AuthService,
+              private route: ActivatedRoute,
               private router: Router,
               private postsService: PostsService) { }
 
